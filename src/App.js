@@ -34,10 +34,6 @@ class App extends Component {
     this.geocode = debounce(this.geocode, 500)
   }
 
-  resetState() {
-    this.setState({ ...initialState })
-  }
-
   geocode(field, address) {
     api.geocode({ address })
       .then(res => this.onPresent(field, res))
@@ -80,8 +76,8 @@ class App extends Component {
   }
 
   onCreated() {
-    this.setState({ created: true }, () =>
-      setTimeout(() => this.resetState(), 5000)
+    this.setState({ ...initialState, created: true }, () =>
+      setTimeout(() => this.setState({ created: false }), 5000)
     )
   }
 
@@ -95,6 +91,7 @@ class App extends Component {
           pickup={pickup}
           dropoff={dropoff}
           disabled={!pickup.longitude || !dropoff.longitude || creating}
+          creating={creating}
           onFieldChange={(field, value) => this.handleChange(field, value)}
           onCreate={() => this.handleCreate()}
         />

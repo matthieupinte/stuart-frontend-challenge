@@ -1,7 +1,7 @@
 .toaster {
   position: absolute;
-  bottom: 32px;
-  left: 32px;
+  top: 32px;
+  right: 32px;
   margin: 0;
 
   border-radius: 8px;

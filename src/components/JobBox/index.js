@@ -35,7 +35,7 @@ const Field = ({ type, value, status, onChange }) => {
   )
 }
 
-export default ({ disabled, pickup, dropoff, onFieldChange, onCreate }) => (
+export default ({ disabled, creating, pickup, dropoff, onFieldChange, onCreate }) => (
   <div className="job-box">
     <Field
       type="pickup"
@@ -53,7 +53,7 @@ export default ({ disabled, pickup, dropoff, onFieldChange, onCreate }) => (
       <Button
         disabled={disabled}
         onClick={onCreate}>
-        Create Job
+        {creating ? 'Creating...' : 'Create Job'}
       </Button>
     </div>
   </div>
