@@ -1,28 +1,48 @@
 import React, { Component } from 'react'
-import mapboxgl from 'mapbox-gl'
-import 'mapbox-gl/dist/mapbox-gl.css'
+import MapboxGl, { Marker } from "react-mapbox-gl"
+
+import { ReactComponent as PickUpMarker } from '../../assets/pickUpMarker.svg'
+import { ReactComponent as DropOffMarker } from '../../assets/dropOffMarker.svg'
 
 import './styles.css'
 
-mapboxgl.accessToken = 'pk.eyJ1IjoibWF0dGhpZXVwaW50ZSIsImEiOiJjanQyd3F5ZDIxajkxM3lwaHdpZGpoZDF1In0.Z95KtkljxyucgBCsoK-sNA'
+const Map = MapboxGl({
+  accessToken: 'pk.eyJ1IjoibWF0dGhpZXVwaW50ZSIsImEiOiJjanQyd3F5ZDIxajkxM3lwaHdpZGpoZDF1In0.Z95KtkljxyucgBCsoK-sNA'
+})
 
-export default class Map extends Component {
-  componentDidMount() {
-    this.map = new mapboxgl.Map({
-      container: this.container,
-      style: 'mapbox://styles/mapbox/streets-v9',
-      center: [2.319332056, 48.859329896],
-      zoom: 14,
-    })
+const markers = {
+  'pickup': PickUpMarker,
+  'dropoff': DropOffMarker,
+}
 
-    this.map.addControl(new mapboxgl.FullscreenControl())
-  }
+const ImgMarker = ({ type, latitude, longitude }) => {
+  const Img = markers[type]
 
-  componentWillUnmount() {
-    this.map.remove()
-  }
+  return (
+    <Marker
+      coordinates={[longitude, latitude]}
+      anchor="bottom">
+      <Img />
+    </Marker>
+  )
+}
 
+export default class extends Component {
   render () {
-    return <div className="map-container" ref={el => this.container = el} />
+    const { pickup, dropoff } = this.props
+
+    return (
+      <Map
+        style="mapbox://styles/mapbox/streets-v9"
+        center={[2.319332056, 48.859329896]}
+        zoom={[14]}
+        containerStyle={{
+          height: "100vh",
+          width: "100vw"
+        }}>
+        {pickup && <ImgMarker type="pickup" {...pickup} />}
+        {dropoff && <ImgMarker type="dropoff" {...dropoff} />}
+      </Map>
+    )
   }
 }
