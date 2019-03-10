@@ -40,8 +40,8 @@ export default class extends Component {
           height: "100vh",
           width: "100vw"
         }}>
-        {pickup && <ImgMarker type="pickup" {...pickup} />}
-        {dropoff && <ImgMarker type="dropoff" {...dropoff} />}
+        <ImgMarker type="pickup" {...pickup} />
+        <ImgMarker type="dropoff" {...dropoff} />
       </Map>
     )
   }
