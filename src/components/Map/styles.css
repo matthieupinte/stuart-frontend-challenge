@@ -1,0 +1,9 @@
+.map-container {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 100%;
+}
+
+/* Fix Mapbox GL CSS */
+.mapboxgl-canvas { left: 0; }
